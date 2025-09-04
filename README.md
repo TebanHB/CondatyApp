@@ -1,50 +1,68 @@
-# Welcome to your Expo app 👋
+# Condaty App Móvil
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Este es el proyecto móvil de Condaty, desarrollado con [Expo](https://expo.dev) y [React Native](https://reactnative.dev), orientado a la gestión y participación en encuestas dentro del ecosistema Condaty.
 
-## Get started
+## Demo Temporal
 
-1. Install dependencies
+Puedes probar una versión en vivo de la app instalando Expo Go y escaneando el QR que aparece al iniciar el proyecto localmente.
+
+### Credenciales de Prueba
+
+Utiliza las siguientes cuentas para acceder a la demo:
+
+```json
+[
+   { "email": "admin@admin.com", "password": "12345678", "role": "admin" },
+   { "email": "guardia@guardia.com", "password": "12345678", "role": "guard" },
+   { "email": "cliente@cliente.com", "password": "12345678", "role": "resident" }
+]
+```
+
+## Alcance del Proyecto
+
+### Funcionalidades Incluidas
+
+- **Autenticación Segura**: Inicio de sesión con roles diferenciados (admin, guard, resident).
+- **Gestión de Encuestas**:
+   - Visualización de encuestas activas.
+   - Responder encuestas desde la app.
+- **Navegación basada en rutas**: Utiliza [file-based routing](https://docs.expo.dev/router/introduction) para una estructura clara.
+
+### Funcionalidades Excluidas
+
+- **Creación/Edición de encuestas**: Solo disponible en el panel web.
+- **Notificaciones en Tiempo Real**: No implementadas en esta versión.
+- **Exportación de Datos**: No disponible en la app móvil.
+- **Bases de Datos Externas**: Utiliza datos locales o simulados.
+- **Personalización avanzada**: No incluye temas personalizados (ej: DarkMode).
+
+## Configuración del Entorno
+
+1. Instala las dependencias:
 
    ```bash
    npm install
    ```
 
-2. Start the app
+2. Inicia la app en modo desarrollo:
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+3. Escanea el QR con Expo Go para probar la app en tu dispositivo.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Despliegue
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Para generar una build de producción, consulta la [documentación de Expo](https://docs.expo.dev/build/introduction/).
 
-## Get a fresh project
+## Aprende más
 
-When you're ready, run:
+- [Expo documentación](https://docs.expo.dev/)
+- [React Native documentación](https://reactnative.dev/)
 
-```bash
-npm run reset-project
-```
+## Comunidad
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- [Expo en GitHub](https://github.com/expo/expo)
+- [Discord de Expo](https://chat.expo.dev)
 
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.

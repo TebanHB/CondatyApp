@@ -1,29 +1,52 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
+// app/_layout.tsx
+
+import { Stack, useRouter, useSegments } from 'expo-router';
+import React, { useEffect } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 import 'react-native-reanimated';
+import { AuthProvider, useAuth } from '../context/AuthContext'; // Revisa la ruta
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+const RootLayoutNav = () => {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+  const segments = useSegments();
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+  useEffect(() => {
+    if (loading) return; // Si está cargando, no hagas nada aún
 
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
+    const inAuthGroup = segments[0] === '(tabs)';
+
+    if (user && !inAuthGroup) {
+      // Si hay usuario pero no está en la sección principal, llévalo allí
+      router.replace('/(tabs)');
+    } else if (!user && inAuthGroup) {
+      // Si no hay usuario pero intenta acceder a la sección principal, llévalo al login
+      router.replace('/login');
+    }
+  }, [user, loading, segments]);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Stack>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="login" options={{ headerShown: false }} />
+      <Stack.Screen name="+not-found" />
+    </Stack>
+  );
+};
+
+export default function RootLayout() {
+  // Envolvemos toda la app con el proveedor para que todos tengan acceso al contexto
+  return (
+    <AuthProvider>
+      <RootLayoutNav />
+    </AuthProvider>
   );
 }

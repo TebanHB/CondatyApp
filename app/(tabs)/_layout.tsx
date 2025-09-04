@@ -7,6 +7,8 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { FontAwesome } from '@expo/vector-icons';
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -38,6 +40,14 @@ export default function TabLayout() {
         options={{
           title: 'Explore',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="dashboard" // This is your new DashboardScreen
+        options={{
+          title: 'Dashboard',
+          headerShown: false, // Hide header because we have one in the component
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="list-alt" color={color} />,
         }}
       />
     </Tabs>

@@ -4,7 +4,7 @@ import { Stack, useRouter, useSegments } from 'expo-router';
 import React, { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import 'react-native-reanimated';
-import { AuthProvider, useAuth } from '../context/AuthContext'; // Revisa la ruta
+import { AuthProvider, useAuth } from '../context/AuthContext';
 
 const RootLayoutNav = () => {
   const { user, loading } = useAuth();
@@ -12,15 +12,17 @@ const RootLayoutNav = () => {
   const segments = useSegments();
 
   useEffect(() => {
-    if (loading) return; // Si está cargando, no hagas nada aún
+    if (loading) return;
 
-    const inAuthGroup = segments[0] === '(tabs)';
+    // --- CAMBIO CLAVE AQUÍ ---
+    // Ahora consideramos que el usuario está en la zona segura si está en '(tabs)' O en 'survey'
+    const inAuthGroup = segments[0] === '(tabs)' || segments[0] === 'survey';
 
     if (user && !inAuthGroup) {
-      // Si hay usuario pero no está en la sección principal, llévalo allí
+      // Si el usuario está logueado pero fuera de la zona segura, lo llevamos a las pestañas.
       router.replace('/(tabs)');
-    } else if (!user && inAuthGroup) {
-      // Si no hay usuario pero intenta acceder a la sección principal, llévalo al login
+    } else if (!user && segments[0] !== 'login') {
+      // Si no está logueado y no está en el login, lo llevamos al login.
       router.replace('/login');
     }
   }, [user, loading, segments]);
@@ -37,13 +39,13 @@ const RootLayoutNav = () => {
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="login" options={{ headerShown: false }} />
+      <Stack.Screen name="survey/[id]" options={{ presentation: 'modal' }} />
       <Stack.Screen name="+not-found" />
     </Stack>
   );
 };
 
 export default function RootLayout() {
-  // Envolvemos toda la app con el proveedor para que todos tengan acceso al contexto
   return (
     <AuthProvider>
       <RootLayoutNav />

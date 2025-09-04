@@ -38,19 +38,25 @@ Utiliza las siguientes cuentas para acceder a la demo:
 
 ## Configuración del Entorno
 
-1. Instala las dependencias:
+1. **Configurar el backend:**
+   Crea un archivo `.env` en la raíz del proyecto y añade la siguiente variable de entorno, reemplazando la URL con la de tu backend:
+   ```
+   EXPO_PUBLIC_API_URL=https://tu-backend-url.com
+   ```
+
+2. Instala las dependencias:
 
    ```bash
    npm install
    ```
 
-2. Inicia la app en modo desarrollo:
+3. Inicia la app en modo desarrollo:
 
    ```bash
    npx expo start
    ```
 
-3. Escanea el QR con Expo Go para probar la app en tu dispositivo.
+4. Escanea el QR con Expo Go para probar la app en tu dispositivo.
 
 ## Despliegue
 
